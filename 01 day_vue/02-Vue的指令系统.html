@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style type="text/css">
+    .box {
+        width: 300px;
+        height: 300px;
+        background-color: red
+    }
+    .active {
+        background-color: green;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p v-text="msg"></p>
+        <div v-html="msg2"></div>
+        <div v-html="1+1" v-show='false'></div>
+        <div v-if="Math.random() > 0.5">澳门赌场开业了</div>
+        <div v-else>澳门赌场失业了</div>
+        <div class="box" v-bind:class="{active:!isGreen}" v-on:click='clickHandler'></div>
+        <ul>
+        	<li v-for='(item, index) in menuLists'>
+        		<h5 v-text="item.id"></h5>
+        		<h3>{{item.name}}</h3>
+        		<em>{{item.price}}</em>
+        		<p>index:{{index}}</p>
+        	</li>
+        </ul>
+        <ul>
+        	<li v-for="(value,key) in person">
+        		{{key}}==={{value}}
+        	</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+    // v-text innerText
+    // v-html innerHTML
+    // v-if 数据属性对应的值 如为假 则不在页面中渲染 反之 appendChild(), removeChild()
+    // v-else 控制dom元素的显示隐藏 display:none | block
+    // v-bind绑定标签上的属性（内置属性和自定义的属性）简写:
+    // v-on:原生事件名 = '函数名' 简写@
+    // v-for ="(item,index) in menuLists"
+
+    // vue官网：v-if真正的条件渲染，惰性的；v-show总是被渲染
+    // v-if有更高的切换开销，而v-show有更高的初始渲染开销。若频繁切换使用v-show，如运行时条件很少改变，则使用v-if
+    new Vue({
+        el: "#app",
+        data: function() {
+            return {
+                msg: '指令系统',
+                msg2: '<h2>指令系统2</h2>',
+                isGreen:false,
+                menuLists:[
+                	{id:1,name:'大腰子',price:70},
+                	{id:2,name:'宫保鸡丁',price:40},
+                	{id:3,name:'炸黄花鱼',price:60}
+                ],
+                person:{
+                	name:'cc',
+                	age:11,
+                	habit:'sleep'
+                }
+            }
+        },
+        methods:{
+        	clickHandler(e){
+        		// console.log(this);
+        		this.isGreen = !this.isGreen;
+        	}
+        },
+        template: ''
+    });
+    </script>
+</body>
+
+</html>
