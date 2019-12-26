@@ -5,31 +5,57 @@
 </head>
 <body>
 	<div id="app"></div>
-	<script type="text/javascript" src="../vue.min.js"></script>
-	<script type="text/javascript">		
+	<script type="text/javascript" src="../vue.js"></script>
+	<script type="text/javascript">	
+		// 全局组件
+		// 第一个参数是组件的名字，第二个参数是options
+		Vue.component('Vbtn',{
+			template:`
+				<button>按钮</button>
+			`
+		})
 		var Vcontent = {
 			template:`
-				<div>我是内容组件</div>
+				<div>
+					我是内容组件
+					<Vbtn/>
+					<Vbtn/>
+					<Vbtn/>
+				</div>
 			`
-		};
+		};	
 		var Vaside = {
 			template:`
-				<div>我是侧边栏组件</div>
+				<div>
+					我是侧边栏组件
+				</div>
 			`
 		};
 		var Vheader = {
+			// 组件中返回必须是函数
+			data(){
+				return {
+
+				}
+			},
 			template:`
-				<div>我是头部组件</div>
-			`
+				<div>
+					我是头部组件
+				</div>
+			`,
+			methods: {
+
+			}
 		};
 		var App = {
+			//12.26坑 生产环境不报错，开发环境js报错Component template should contain exactly one root element
+			// vue模板只能有一个根对象，所以你想要出现正常的效果，你的用一个div来或是别的标签来包裹全部的元素
 			template:`
-				<Vheader />
-				<Vaside />
-				<div>
-					<Vaside />
-					<Vcontent />
-				</div>
+			<div>
+				<Vheader />		
+				<Vaside />	
+				<Vcontent />
+			</div>
 			`,
 			components:{
 				Vheader,
