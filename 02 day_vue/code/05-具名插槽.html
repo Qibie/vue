@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <script type="text/javascript" src="../vue.js"></script>
+    <div id="app"></div>
+    <script type="text/javascript">
+    Vue.component('myLi', {
+        template: `
+				<li>
+					预留第一个坑
+					<slot name='two'></slot>
+					预留第二个坑
+					<slot name='three'></slot>
+				</li>	
+			`
+    });
+
+    var App = {
+        template: `
+				<div>
+					<ul>
+						<myLi>
+							<h2 slot='three'>我是第一个坑</h2>
+							<h3 slot='two'>我是第二坑</h3>
+							</myLi>
+					</ul>
+				</div>
+			`
+    };
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            App
+        },
+        template: '<App />'
+    })
+    </script>
+</body>
+</html>
