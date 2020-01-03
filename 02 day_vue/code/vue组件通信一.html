@@ -14,7 +14,7 @@
 			1).父组件传递了message数据给子组件，通过v-on绑定了一个getChildData事件来监听子组件的触发事件;
 			2).子组件通过props得到相关的message数据，最后通过this.$emit触发了getChiladData事件
 		*/
-		Vue.component('child',{
+		Vue.component('Child',{
 			data(){
 				return{
 
@@ -22,14 +22,42 @@
 			},
 			template:`
 				<div>
+					<p>我是一个子组件</p>
 					<input type="text" v-model="message" @input="passData(message)"/>
 				</div>
 			`,
 			props:['message'],
 			methods:{
-				
+				passData(val){
+					this.$emit('getChiladData', val)
+				}				
 			}
-		})
+		});
+		Vue.component('Parent', {
+			data(){
+				return{
+					msg:"我是父组件的数据"
+				}
+			},
+			template:`
+				<div>
+					<p>我是一个父组件</p>
+					<Child :message = 'msg' @getChiladData='getChiladData' />
+				</div>
+			`,
+			methods:{
+				getChiladData(val){
+					console.log(val)
+				}
+			}
+		});
+		var App = {
+			template:`
+			<div>
+				<Parent />
+			</div>
+			`
+		}
 
 		new Vue({
 			el:'#app',
@@ -37,7 +65,11 @@
 				return {
 
 				}
-			}
+			},
+			components:{
+				App
+			},
+			template:`<App/>`
 		})
 	</script>
 </body>
