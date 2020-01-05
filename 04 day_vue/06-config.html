@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="app">
+	</div>
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript" src="./node_modules/axios/dist/axios.js"></script>
+	<script type="text/javascript">
+		// axios是一个对象
+		// console.log(axios);
+		var App = {
+			data(){
+				return {
+				}
+			},
+			template:`
+				<div>
+					<button @click='sendAjax'>发送请求</button>
+				</div>
+			`,
+			methods:{
+				sendAjax(){
+					this.$axios.defaults.baseURL = 'http://127.0.0.1:8888/';
+					this.$axios.get('', {
+						params:{id:1},
+						//transformResponse在传递给then/catch前，允许修改响应数据
+						transformResponse:[function(data){
+							//对data进行任意转换处理
+							// console.log(data)
+							// console.log(typeof data)
+							data = JSON.parse(data);
+							console.log(data);
+							data.msg = '你好';
+
+							return data;
+						}]
+					})
+					.then(res=>{
+						console.log(res.data.msg);
+					})
+					.catch(err=>{
+						console.log(err)
+					});
+
+					this.$axios.post('/add', 'name=jack', {
+						// 'transformRequest'允许在向服务器发送前，修改请求数据
+						// 只能在PUT，PSOT和PATCH这几个请求方法
+						// 后面数据中的函数必须返回一个字符串或ArrayBuffer或Stream
+						transformRequest:[function(data){
+							//对data进行任意转换处理
+							// qs
+							// return data;
+							return 'name=tom';
+						}],
+					})
+					.then(res=>{
+						console.log(res.data);
+					})
+					.catch(err=>{
+						console.log(err);
+					})
+				}
+			}
+		};
+		// 挂载axios两种方法
+		// 1.Vue.use
+		// 2.挂在原型上
+		Vue.prototype.$axios = axios;
+		new Vue({
+			el:"#app",
+			template:'<App />',
+			components:{
+				App
+			}
+		})	
+	</script>
+</body>
+</html>
