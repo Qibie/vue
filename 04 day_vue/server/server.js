@@ -11,12 +11,12 @@ const router = new Router();
 // 处理文字和文件的请求体数据
 const formidable = require('koa-formidable')
 
-// var corsOptions = {
-// 	origin: 'http://localhost:8070/',
-// 	credentials: true,
-// 	maxAge:'1728000',
-// 	//这一项时为了跨域专门设置的
-// }
+var corsOptions = {
+	origin: 'http://localhost:8070/',
+	credentials: true,
+	maxAge:'1728000',
+	//这一项时为了跨域专门设置的
+}
 
 router.post('/upload', async(ctx,next)=>{
 	console.log('上传成功')
@@ -64,6 +64,7 @@ app.use(async(ctx, next) =>{
 
 	ctx.response.set("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
 	ctx.response.set("Access-Control-Allow-Headers", 'tokens');
+	// ctx.response.set("Access-Control-Allow-Headers", "content-type,x-requested-with,Authorization, x-ui-request,lang");
 
 	await next();
 });
