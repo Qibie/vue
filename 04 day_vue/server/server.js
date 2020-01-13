@@ -42,6 +42,15 @@ router.post('/upload', async(ctx,next)=>{
 		body:'vueRouter的钩子函数'
 	}
 })
+.get('/user/:id', async ctx=>{
+	console.log(ctx.params);
+
+	if (ctx.params.id == '1') {
+		ctx.body = '用户1';
+	} else {
+		ctx.body = '用户2';
+	}
+})
 
 //对文件的操作
 app.use(async(ctx,next)=>{
