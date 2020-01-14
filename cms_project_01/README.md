@@ -20,4 +20,9 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-npm i mint-ui -S
+1. npm i mint-ui -S
+2. //使用mint-ui引入全部的组件
+`import Mint from 'mint-ui';
+Vue.use(Mint);`
+//引入mint-ui的全局css样式
+`import 'mint-ui/lib/style.css';`
