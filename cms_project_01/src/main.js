@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 //使用mint-ui引入全部的组件
 import Mint from 'mint-ui';
 Vue.use(Mint);
-//引入mint-ui的css样式
+//引入mint-ui的全局css样式
 import 'mint-ui/lib/style.css';
 
 /* eslint-disable no-new */
